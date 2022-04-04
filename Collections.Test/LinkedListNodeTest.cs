@@ -3,13 +3,13 @@ using Xunit;
 
 namespace Collections.Test;
 
-public class NodeTest
+public class LinkedListNodeTest
 {
     [Fact]
     public void Constructor_ValueAndNext_DoesProperInitialization()
     {
-        var lastNode = new LinkedList.Node(2);
-        var node = new LinkedList.Node(1, lastNode);
+        var lastNode = new LinkedListNode(2);
+        var node = new LinkedListNode(1, lastNode);
 
         lastNode.Value.Should().Be(2);
         lastNode.Next.Should().Be(null);
@@ -20,7 +20,7 @@ public class NodeTest
     [Fact]
     public void DeepCopy_DoesDeepCopy()
     {
-        var originalNode = new LinkedList.Node(1);
+        var originalNode = new LinkedListNode(1);
         var deepCopyNode = originalNode.DeepCopy;
 
         deepCopyNode.Value = 2;
@@ -35,7 +35,7 @@ public class NodeTest
     [Fact]
     public void NodeProperties_CanBeChanged_ViaAnyReference()
     {
-        var node = new LinkedList.Node(1);
+        var node = new LinkedListNode(1);
         var nodeReference = node;
 
         nodeReference.Value = 2;

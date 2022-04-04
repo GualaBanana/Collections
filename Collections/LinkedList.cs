@@ -3,12 +3,12 @@
 public class LinkedList
 {
     const int _minimalLength = 1;
-    readonly Node _head;
+    readonly LinkedListNode _head;
     int _length = -1;
 
-    public Node Head => _head;
+    public LinkedListNode Head => _head;
 
-    public Node Tail => NodeAt(_minimalLength, 1)!;
+    public LinkedListNode Tail => NodeAt(_minimalLength, 1)!;
     public int Length
     {
         get
@@ -37,17 +37,17 @@ public class LinkedList
                 currentNode.Next = null;
                 break;
             }
-            currentNode = currentNode.Next = new Node();
+            currentNode = currentNode.Next = new LinkedListNode();
             nodeCount++;
         }
     }
 
-    public LinkedList(Node head)
+    public LinkedList(LinkedListNode head)
     {
         _head = head;
     }
 
-    public bool TryLink(Node node, int to)
+    public bool TryLink(LinkedListNode node, int to)
     {
         if (to < _minimalLength) throw new ArgumentException($"Must be at least `_minimalLength` = {_minimalLength}`.", nameof(to));
 
@@ -60,14 +60,14 @@ public class LinkedList
         return false;
     }
 
-    public Node? NodeAt(int position, int startPosition = 0) => startPosition switch
+    public LinkedListNode? NodeAt(int position, int startPosition = 0) => startPosition switch
     {
         0 => NodeAtFromBeginning(position),
         1 => NodeAtFromEnd(position),
         _ => throw new ArgumentOutOfRangeException(nameof(startPosition), "Possible values are 0 (beginning) and 1 (end)."),
     };
 
-    Node? NodeAtFromBeginning(int position)
+    LinkedListNode? NodeAtFromBeginning(int position)
     {
         if (position < _minimalLength) throw new ArgumentException($"Must be at least `_minimalLength = {_minimalLength}`.", nameof(position));
 
@@ -79,9 +79,9 @@ public class LinkedList
         return null;
     }
 
-    Node? NodeAtFromEnd(int position)
+    LinkedListNode? NodeAtFromEnd(int position)
     {
-        var lastNodes = new Queue<Node>(position + 1);
+        var lastNodes = new Queue<LinkedListNode>(position + 1);
         foreach (var node in ToEnumerable())
         {
             lastNodes.Enqueue(node);
@@ -107,12 +107,12 @@ public class LinkedList
         b.Value = aCopy.Value;
     }
 
-    public List<Node> ToList()
+    public List<LinkedListNode> ToList()
     {
         return ToEnumerable().ToList();
     }
 
-    public IEnumerable<Node> ToEnumerable()
+    public IEnumerable<LinkedListNode> ToEnumerable()
     {
         var currentNode = Head;
         do
@@ -120,25 +120,5 @@ public class LinkedList
             yield return currentNode;
         }
         while ((currentNode = currentNode?.Next) is not null);
-    }
-
-    public class Node
-    {
-        int _value;
-        Node? _next;
-
-        public ref int Value => ref _value;
-        public ref Node? Next => ref _next;
-        public Node DeepCopy => new(_value, _next);
-
-        public Node() : this(default)
-        {
-        }
-
-        public Node(int value, Node? next = null)
-        {
-            _value = value;
-            _next = next;
-        }
     }
 }

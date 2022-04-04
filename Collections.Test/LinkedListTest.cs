@@ -9,7 +9,7 @@ public class LinkedListTest
     [Fact]
     public void Constructor_Node_InitializesHead()
     {
-        var node = new LinkedList.Node(1);
+        var node = new LinkedListNode(1);
         var linkedList = new LinkedList(node);
 
         linkedList.Head.Should().Be(node);
@@ -68,8 +68,8 @@ public class LinkedListTest
     {
         int size = 10;
         var linkedList = new LinkedList(size);
-        LinkedList.Node nodeFromEnd;
-        LinkedList.Node nodeFromBeginning;
+        LinkedListNode nodeFromEnd;
+        LinkedListNode nodeFromBeginning;
 
         foreach (var position in Enumerable.Range(1, size))
         {
@@ -99,7 +99,7 @@ public class LinkedListTest
     public void TryLink_ToNodeAtValidIndex_LinksNode()
     {
         int size = 5;
-        var node = new LinkedList.Node();
+        var node = new LinkedListNode();
         var linkedList = new LinkedList(size);
         var tail = linkedList.Tail;
         tail.Next.Should().BeNull();
