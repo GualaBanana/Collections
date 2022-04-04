@@ -47,6 +47,19 @@ public class LinkedList
         _head = head;
     }
 
+    public bool TryLink(Node node, int to)
+    {
+        if (to < _minimalLength) throw new ArgumentException($"Must be at least `_minimalLength` = {_minimalLength}`.", nameof(to));
+
+        var linkingNode = NodeAt(to);
+        if (linkingNode is not null)
+        {
+            linkingNode.Next = node;
+            return true;
+        }
+        return false;
+    }
+
     public Node? NodeAt(int position, int startPosition = 0) => startPosition switch
     {
         0 => NodeAtFromBeginning(position),

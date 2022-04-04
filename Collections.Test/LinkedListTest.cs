@@ -95,6 +95,20 @@ public class LinkedListTest
         swappedNode2.Value.Should().Be(initialNode1.Value);
     }
 
+    [Fact]
+    public void TryLink_ToNodeAtValidIndex_LinksNode()
+    {
+        int size = 5;
+        var node = new LinkedList.Node();
+        var linkedList = new LinkedList(size);
+        var tail = linkedList.Tail;
+        tail.Next.Should().BeNull();
+
+        linkedList.TryLink(node, size);
+
+        tail.Next.Should().BeSameAs(node);
+    }
+
     [Theory]
     [InlineData(1)]
     [InlineData(1000)]
